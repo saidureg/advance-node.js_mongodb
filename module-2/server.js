@@ -28,7 +28,11 @@ const postData = [
 ];
 
 const server = http.createServer((req, res) => {
-  if (req.url === "/home" && req.method === "GET") {
+  const parsedURL = new URL(req.url, `http://${req.headers.host}`);
+
+  const pathName = parsedURL.pathname;
+
+  if (pathName === "/home" && req.method === "GET") {
     res.writeHead(200, { "Content-Type": "text/html" });
     res.end(`
     <DOCTYPE html>
@@ -41,9 +45,14 @@ const server = http.createServer((req, res) => {
     </body>
     </html>
       `);
-  } else if (req.url === "/posts" && req.method === "GET") {
+  } else if (pathName === "/posts" && req.method === "GET") {
+    const query = parsedURL.searchParams;
+    const postId = query.get("id");
+
+    const expectedPost = postData.find((post) => post.id === Number(postId));
+
     res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(JSON.stringify(postData));
+    res.end(JSON.stringify(expectedPost));
   } else {
     res.end("Page not found");
   }
@@ -52,5 +61,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(5000, "127.0.0.1", () => {
-  console.log("Server is running on port 5000");
+  console.log(`Server is running on port ${5000}`);
 });
