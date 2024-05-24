@@ -1,5 +1,6 @@
 const http = require("node:http");
 const fs = require("fs");
+const { json } = require("stream/consumers");
 
 // const postData = [
 //   {
@@ -34,31 +35,29 @@ const server = http.createServer((req, res) => {
   const pathName = parsedURL.pathname;
 
   if (pathName === "/home" && req.method === "GET") {
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.end(`
-    <DOCTYPE html>
-    <html>
-    <head>
-    <title>Home Page</title>
-    </head>
-    <body>
-    <h1>Welcome to the home page</h1>
-    </body>
-    </html>
-      `);
+    fs.readFile(__dirname + "/index.html", "utf-8", (err, data) => {
+      if (err) {
+        throw new Error(err, "Error reading file");
+      }
+
+      res.writeHead(200, { "Content-Type": "text/html" });
+      res.end(data);
+    });
   } else if (pathName === "/posts" && req.method === "GET") {
-    // const query = parsedURL.searchParams;
-    // const postId = query.get("id");
-
-    // const expectedPost = postData.find((post) => post.id === Number(postId));
-
     fs.readFile(__dirname + "/posts.json", "utf-8", (err, data) => {
       if (err) {
         throw new Error(err, "Error reading file");
       }
 
+      const query = parsedURL.searchParams;
+      const postId = query.get("id");
+
+      const expectedPost = JSON.parse(data).find(
+        (post) => post.id === Number(postId)
+      );
+
       res.writeHead(200, { "Content-Type": "application/json" });
-      res.end(data);
+      res.end(JSON.stringify(expectedPost));
     });
 
     // res.writeHead(200, { "Content-Type": "application/json" });
