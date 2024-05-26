@@ -5,7 +5,9 @@ const app = express();
 app.use(express.json());
 
 app.get("/home", (req, res) => {
-  res.send("Hello World");
+  //   res.send("Hello World");
+  //   res.json({ message: "Hello World" });
+  res.sendFile(__dirname + "/index.html");
 });
 
 app.listen(5000, () => {

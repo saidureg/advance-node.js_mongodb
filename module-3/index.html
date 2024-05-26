@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Course Card</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #fff;
+      }
+
+      .card {
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        padding: 30px;
+        max-width: 350px;
+        text-align: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+        color: #fff;
+      }
+
+      .card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+      }
+
+      .course-title {
+        font-size: 1.8em;
+        margin-bottom: 15px;
+      }
+
+      .course-description {
+        font-size: 1em;
+        margin-bottom: 20px;
+      }
+
+      .course-email,
+      .course-date {
+        font-size: 0.9em;
+
+        margin-bottom: 10px;
+      }
+
+      .course-email {
+        font-style: italic;
+      }
+
+      .card-background {
+        background-color: #f8f9fa;
+        border-radius: 15px 15px 0 0;
+        height: 150px;
+        margin: -30px -30px 20px -30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div class="card-background"></div>
+      <h2 class="course-title">MERN Stack Developer</h2>
+      <p class="course-description">
+        Learn how to build full-stack web applications using the MERN (MongoDB,
+        Express.js, React.js, Node.js) stack.
+      </p>
+      <p class="course-email">Email: example@example.com</p>
+      <p class="course-date">Date: 01/01/2024</p>
+    </div>
+  </body>
+</html>
